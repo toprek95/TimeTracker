@@ -22,12 +22,12 @@ namespace TimeTracker.Controllers
             _logger = logger;
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserModel>> GetById (long id)
+        public async Task<ActionResult<UserModel>> GetById(long id)
         {
             _logger.LogInformation($"Getting user by id: {id}");
             var user = await _dbContext.Users.FindAsync(id);
 
-            if(user == null)
+            if (user == null)
             {
                 _logger.LogWarning($"User with id: {id} not found");
                 return NotFound(); //Ako ne nadje korisnika vrati 404
@@ -54,6 +54,65 @@ namespace TimeTracker.Controllers
                 PageSize = size,
                 TotalCount = totalUsers
             };
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            _logger.LogInformation($"Deleting user with id: {id}");
+
+            var user = await _dbContext.Users.FindAsync(id);
+
+            if(user == null)
+            {
+                _logger.LogWarning($"No user found with id {id}");
+                return NotFound();
+            }
+
+            _dbContext.Users.Remove(user);
+            await _dbContext.SaveChangesAsync(); //Tek sada izmijeni sve u bazi, do sada je samo u kodu
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<UserModel>> Create( UserInputModel model)
+        {
+            _logger.LogInformation($"Creating a new user with name: {model.Name}");
+
+            var user = new Domain.User();
+
+            model.MapTo(user);
+
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
+
+            //Od novog korisnika user kojeg je unio korisnik kreiramo novi view koji cemo vratiti da se prikaze
+            var resultModel = UserModel.FromUser(user);
+
+            return CreatedAtAction(nameof(GetById), "users", new { id = user.Id}, resultModel);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserModel>> Update (long id, UserInputModel model)
+        {
+            _logger.LogInformation($"Updateing a user with id: {id}");
+
+            var user = await _dbContext.Users.FindAsync(id);
+
+            if (user == null)
+            {
+                _logger.LogWarning($"No user found with id {id}");
+                return NotFound();
+            }
+
+            model.MapTo(user);
+
+            _dbContext.Users.Update(user);
+            await _dbContext.SaveChangesAsync();
+
+            return UserModel.FromUser(user);
+
         }
 
     }
