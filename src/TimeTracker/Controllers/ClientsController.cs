@@ -6,10 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TimeTracker.Domain;
 using TimeTracker.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TimeTracker.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("/api/clients")]
     public class ClientsController : Controller
     {
@@ -57,6 +59,7 @@ namespace TimeTracker.Controllers
             };
         }
 
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
@@ -75,6 +78,7 @@ namespace TimeTracker.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult<ClientModel>> Create(ClientInputModel model)
         {
@@ -91,6 +95,7 @@ namespace TimeTracker.Controllers
             return CreatedAtAction(nameof(GetById), "clients", new { id = client.Id }, resultModel);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<ClientModel>> Update(long id, ClientInputModel model)
         {
