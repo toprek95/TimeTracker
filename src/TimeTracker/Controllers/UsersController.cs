@@ -11,6 +11,10 @@ using TimeTracker.Models;
 
 namespace TimeTracker.Controllers
 {
+    /// <summary>
+    /// Encapsulates functionality for adding, modifying and deleting
+    /// users.
+    /// </summary>
     [ApiController]
     [Authorize]
     [Route("/api/users")]
@@ -38,6 +42,12 @@ namespace TimeTracker.Controllers
             return UserModel.FromUser(user);
         }
 
+        /// <summary>
+        /// gets a signe page of users.
+        /// </summary>
+        /// <param name="page">Page to retrieve.</param>
+        /// <param name="size">Page size</param>
+        /// <returns>Paged list of users</returns>
         [HttpGet]
         public async Task<ActionResult<PagedList<UserModel>>> GetPage(int page = 1, int size = 5)
         {

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using NSwag.Annotations;
 
 namespace TimeTracker.Controllers
 {
     // WARNING: For demo only!!
+    [OpenApiIgnore]
     public class DummyAuthController : Controller
     {
         private readonly IConfiguration _configuration;
