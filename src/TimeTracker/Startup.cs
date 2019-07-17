@@ -48,6 +48,7 @@ namespace TimeTracker
 
             //Dodajemo nas custom middleware
             app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<LimitingMiddleware>();
 
             app.UseHttpsRedirection();
 
