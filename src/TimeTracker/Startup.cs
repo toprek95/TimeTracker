@@ -31,6 +31,8 @@ namespace TimeTracker
 
             services.AddOpenApi();
 
+            services.AddCors();
+
             services.AddControllers()
                 .AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<UserInputModelValidator>());
 
@@ -63,6 +65,13 @@ namespace TimeTracker
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // WARNING: This is just for demo purpose! 
+            // You should limit access to a specific origin.
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
