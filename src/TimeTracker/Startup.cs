@@ -57,7 +57,8 @@ namespace TimeTracker
 
             //Dodajemo nas custom middleware
             app.UseMiddleware<ErrorHandlingMiddleware>();
-            app.UseMiddleware<LimitingMiddleware>();
+            //Za testiranje api-a
+            //app.UseMiddleware<LimitingMiddleware>();
 
             app.UseHttpsRedirection();
 
