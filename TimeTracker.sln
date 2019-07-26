@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracker", "src\TimeTrac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracker.Tests", "src\TimeTracker.Tests\TimeTracker.Tests.csproj", "{B251C003-F9D1-48BF-96B3-3AC94674B11B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTracker.Client", "src\TimeTracker.Client\TimeTracker.Client.csproj", "{C490BC55-7E4C-421B-9A2E-A0EA8E04B8B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimeTracker.Client", "src\TimeTracker.Client\TimeTracker.Client.csproj", "{C490BC55-7E4C-421B-9A2E-A0EA8E04B8B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

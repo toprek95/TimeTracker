@@ -57,7 +57,7 @@ protected override async Task OnInitAsync()
 
 private async Task LoadUsers(int page = 1)
 {
-    const int pageSize = 2;
+    const int pageSize = 5;
     var url = $"users?page={page}&size={pageSize}";
 
     users = await ApiService.GetAsync<PagedList<UserModel>>(url);
